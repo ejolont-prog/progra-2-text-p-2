@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import com.example.personaumg4.model.Estado;
 import com.example.personaumg4.service.EstadoService;
 
+
 @RestController
-@RequestMapping ("/estados/")
-@CrossOrigin(origins = "*")
+@RequestMapping("/estados/")
+@CrossOrigin(origins = "http://localhost:4200")
 public class EstadoREST {
 
     @Autowired

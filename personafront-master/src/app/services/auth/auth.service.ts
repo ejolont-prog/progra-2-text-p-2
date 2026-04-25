@@ -1,22 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators'; // <--- Cambia esto aquí
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private apiUrl = 'http://localhost:8086/api/auth/login';
 
-  // Apuntamos al puerto 8086 y al path definido en @RequestMapping("/api/auth")
-  private API_SERVER = "http://localhost:8086/api/auth/login";
+  constructor(private http: HttpClient) { }
 
-  constructor(private httpClient: HttpClient) { }
+  login(usuario: string, contrasena: string): Observable<any> {
+    return this.http.post<any>(this.apiUrl, { usuario, contrasena }).pipe(
+      tap(res => {
+        if (res.token) {
+          localStorage.setItem('token_umg', res.token);
+        }
+      })
+    );
+  }
 
-  /**
-   * Envía las credenciales al backend.
-   * @param usuario Objeto con { usuario, contrasena }
-   */
-  public login(usuario: any): Observable<any> {
-    return this.httpClient.post(this.API_SERVER, usuario);
+  getToken() {
+    return localStorage.getItem('token_umg');
+  }
+
+  logout() {
+    localStorage.removeItem('token_umg');
   }
 }

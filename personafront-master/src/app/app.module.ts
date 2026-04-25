@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from "@angular/common/http";
 import {NgOptimizedImage} from "@angular/common";
+import {LoginComponent} from "./components/login/login.component";
 
 const routes: Routes = [
   { path: 'login', loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent) },
@@ -26,6 +27,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    LoginComponent,
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),

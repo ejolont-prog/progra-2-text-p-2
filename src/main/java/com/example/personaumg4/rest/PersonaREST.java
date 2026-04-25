@@ -11,9 +11,13 @@ import org.springframework.web.bind.annotation.*;
 import com.example.personaumg4.model.Persona;
 import com.example.personaumg4.service.PersonaService;
 
+
+
 @RestController
 @RequestMapping("/personas/")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
+
+
 public class PersonaREST {
 
     @Autowired

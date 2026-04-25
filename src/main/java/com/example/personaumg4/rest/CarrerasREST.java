@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/carreras")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class CarrerasREST {
 
     @Autowired
