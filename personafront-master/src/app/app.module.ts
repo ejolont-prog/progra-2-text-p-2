@@ -15,6 +15,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { AppComponent } from './app.component';
+import {HttpClientModule} from "@angular/common/http";
+import {NgOptimizedImage} from "@angular/common";
 
 const routes: Routes = [
   { path: 'login', loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent) },
@@ -29,6 +31,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
     MatPaginatorModule,
+    HttpClientModule,
     MatSortModule,
     MatTableModule,
     MatFormFieldModule,
@@ -39,6 +42,7 @@ const routes: Routes = [
     MatExpansionModule,
     MatToolbarModule,
     MatIconModule,
+    NgOptimizedImage,
   ],
   bootstrap: [AppComponent]
 })

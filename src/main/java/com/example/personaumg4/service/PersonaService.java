@@ -19,7 +19,7 @@ public class PersonaService {
     private PersonaRepository personaRepository;
 
     public List<Persona> findAll() {
-        return personaRepository.findByEstadoP("E");
+        return personaRepository.findAll();
     }
 
     public List<Persona> findAll(Sort sort) {

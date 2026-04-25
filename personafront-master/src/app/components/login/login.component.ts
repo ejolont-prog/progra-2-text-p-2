@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import {HttpClientModule} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     MatCardModule,
     MatFormFieldModule,
+    HttpClientModule,
     MatInputModule,
     MatButtonModule
   ],

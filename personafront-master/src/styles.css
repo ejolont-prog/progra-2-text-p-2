@@ -1,4 +1,11 @@
-/* ===== PALETA OFICIAL UMG ===== */
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* Asegúrate de que el body no tenga márgenes extraños */
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 :root {
   --umg-azul: #003057;
   --umg-rojo: #C8102E;
@@ -71,4 +78,10 @@ mat-expansion-panel {
 
 tr.mat-row:hover {
   background-color: #eef2f7 !important;
+}
+
+.nav-logo {
+  height: 40px;
+  width: auto;
+  /* filter: brightness(0) invert(1); ❌ eliminar */
 }

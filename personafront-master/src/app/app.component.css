@@ -1,70 +1,95 @@
-/* ===== Paleta de Colores UMG =====
-   Azul: #003057
-   Rojo: #C8102E
-   Gris Fondo: #f4f4f4
-================================= */
-
-/* ===== Fondo general ===== */
-body {
-  margin: 0;
-  background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  color: #333;
+/* ===== Paleta UMG ===== */
+:root {
+  --umg-azul: #003057;
+  --umg-rojo: #C8102E;
+  --umg-rojo-dark: #A50D26;
 }
 
-/* ===== Toolbar (Azul UMG) ===== */
 .toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  padding: 0 20px;
-  background-color: #003057 !important; /* Azul Marino */
+  display: flex;
+  align-items: center;
+  background-color: #003057 !important; /* Azul UMG */
   color: white;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 15px;
+}
+.nav-logo {
+  height: 40px;
+  width: auto;
+  /* filter: brightness(0) invert(1); ❌ eliminar */
 }
 
 .toolbar-title {
-  margin-left: 10px;
-  font-weight: 600;
-  font-size: 18px;
-  letter-spacing: 0.8px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
   text-transform: uppercase;
+  letter-spacing: 1px;
+}
+/* Contenedor para manejar el espaciado */
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 15px;
+}
+
+
+
+.toolbar-title {
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+body {
+  margin: 0;
+  background: #f4f4f4;
+  font-family: 'Georgia', serif;
+  color: #333;
+}
+
+/* ===== Toolbar ===== */
+mat-toolbar {
+  background-color: var(--umg-azul) !important;
+  color: white !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 /* ===== Expansion Panel ===== */
 mat-expansion-panel {
-  margin: 30px auto;
-  max-width: 1100px;
+  margin: 30px auto !important;
+  max-width: 1100px !important;
   border-radius: 12px !important;
-  border-left: 5px solid #C8102E; /* Detalle en Rojo */
-}
-
-mat-expansion-panel-header {
-  background-color: #ffffff;
+  border-left: 5px solid var(--umg-rojo) !important;
+  box-shadow: 0 2px 12px rgba(0,48,87,0.08) !important;
 }
 
 /* ===== Cards ===== */
 .example-card {
-  margin: 30px auto;
+  margin: 20px auto !important;
   max-width: 1100px;
   border-radius: 15px;
-  padding-bottom: 20px;
+  border-top: 4px solid var(--umg-azul);
   background: white;
-  transition: 0.3s ease-in-out;
-  border-top: 4px solid #003057; /* Borde superior azul */
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .example-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 12px 30px rgba(0, 48, 87, 0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0,48,87,0.12) !important;
 }
 
-/* ===== Contenedor formulario ===== */
+/* ===== Formulario ===== */
 .formularioRegistro {
   padding: 30px 40px;
 }
 
-/* ===== Layout responsive ===== */
 .form-group {
   display: flex;
   flex-wrap: wrap;
@@ -77,63 +102,136 @@ mat-form-field {
   min-width: 220px;
 }
 
-/* ===== Botón Guardar (Rojo UMG) ===== */
-button[type="submit"] {
-  margin-top: 15px;
-  padding: 10px 30px;
-  border-radius: 8px;
-  font-weight: 600;
-  background-color: #C8102E !important; /* Rojo */
-  color: white !important;
-  text-transform: uppercase;
-  transition: background 0.3s;
+/* =====================================================
+   CORRECCIÓN PRINCIPAL: appearance="fill" MDC
+   El problema es que el wrapper tiene height fijo
+   y la label se superpone al input
+   ===================================================== */
+
+/* Altura correcta del contenedor fill */
+::ng-deep .mat-mdc-form-field.mat-mdc-form-field-type-mat-input .mat-mdc-text-field-wrapper,
+::ng-deep .mat-mdc-form-field.mat-mdc-form-field-type-mat-select .mat-mdc-text-field-wrapper {
+  height: 56px !important;
+  padding: 0 16px !important;
 }
 
-button[type="submit"]:hover {
-  background-color: #A50D26 !important; /* Rojo más oscuro */
-  box-shadow: 0 4px 8px rgba(200, 16, 46, 0.3);
+/* Fondo gris suave del fill */
+::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--filled {
+  background-color: rgba(0, 48, 87, 0.04) !important;
+  border-radius: 4px 4px 0 0 !important;
+}
+
+/* CORRECCIÓN CLAVE: posición de la label */
+::ng-deep .mdc-text-field--filled .mdc-floating-label {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: #666 !important;
+  font-size: 16px !important;
+}
+
+/* Label flotando arriba cuando está activo o tiene valor */
+::ng-deep .mdc-text-field--filled .mdc-floating-label--float-above {
+  top: 18px !important;
+  transform: translateY(-100%) scale(0.75) !important;
+  color: var(--umg-azul) !important;
+}
+
+/* Input dentro del fill — posición correcta */
+::ng-deep .mdc-text-field--filled .mat-mdc-input-element {
+  margin-top: 20px !important;
+  color: #222 !important;
+}
+
+/* Select dentro del fill */
+::ng-deep .mdc-text-field--filled .mat-mdc-select {
+  margin-top: 20px !important;
+}
+
+/* Línea inferior */
+::ng-deep .mdc-text-field--filled .mdc-line-ripple::before {
+  border-bottom-color: #aaa !important;
+}
+
+::ng-deep .mdc-text-field--filled.mdc-text-field--focused .mdc-line-ripple::after {
+  border-bottom-color: var(--umg-azul) !important;
+}
+
+/* Label al hacer focus */
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: var(--umg-azul) !important;
+}
+
+/* ===== Botón Guardar ===== */
+button[type="submit"] {
+  margin-top: 15px;
+  padding: 10px 30px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  background-color: var(--umg-rojo) !important;
+  color: white !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+button[type="submit"]:hover:not([disabled]) {
+  background-color: var(--umg-rojo-dark) !important;
+  box-shadow: 0 4px 12px rgba(200,16,46,0.35) !important;
 }
 
 /* ===== Tabla ===== */
 .mat-elevation-z8 {
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-table {
-  width: 100%;
-}
+table { width: 100%; }
 
-/* Encabezado tabla (Azul UMG) */
-th.mat-header-cell {
-  background-color: #003057;
+::ng-deep .mat-mdc-header-cell {
+  background-color: var(--umg-azul) !important;
   color: white !important;
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 600 !important;
+  font-size: 13px !important;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* Filas hover */
-tr.mat-row:hover {
-  background-color: #f0f4f8; /* Azul muy pálido */
+::ng-deep .mat-mdc-row:hover {
+  background-color: #EEF3F8 !important;
   cursor: pointer;
-  transition: 0.2s;
 }
 
-/* ===== Iconos y Botones tabla ===== */
+::ng-deep .mat-mdc-cell {
+  color: #333 !important;
+  font-size: 14px;
+}
+
+/* ===== Botones tabla ===== */
+.example-button-container {
+  display: flex;
+  gap: 8px;
+}
+
 .example-button-container button {
-  color: #003057; /* Iconos en azul */
+  color: var(--umg-azul) !important;
+  transition: color 0.2s, transform 0.2s;
 }
 
 .example-button-container button:hover {
-  color: #C8102E; /* Cambio a rojo al pasar el mouse */
+  color: var(--umg-rojo) !important;
   transform: scale(1.15);
 }
 
 /* ===== Paginador ===== */
-mat-paginator {
-  margin-top: 15px;
-  background-color: #f9f9f9;
+::ng-deep mat-paginator {
+  background-color: #f9f9f9 !important;
   border-radius: 0 0 12px 12px;
+  border-top: 1px solid #eee;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .formularioRegistro { padding: 20px; }
+  .form-group { flex-direction: column; }
+  mat-form-field { width: 100%; }
 }
