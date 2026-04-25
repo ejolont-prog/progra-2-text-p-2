@@ -1,43 +1,45 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-
+import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatSortModule} from '@angular/material/sort'
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { AppComponent } from './app.component';
 
+const routes: Routes = [
+  { path: 'login', loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent) },
+  { path: '', redirectTo: '/login', pathMatch: 'full' }
+];
 
-@NgModule({ declarations: [
-        AppComponent
-    ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatTableModule,
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatPaginatorModule,
-        MatExpansionModule,
-        MatSortModule,
-        MatToolbarModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot(routes),
+    ReactiveFormsModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatSelectModule,
+    MatExpansionModule,
+    MatToolbarModule,
+    MatIconModule,
+  ],
+  bootstrap: [AppComponent]
+})
 export class AppModule { }

@@ -1,5 +1,6 @@
 package com.example.personaumg4.model;
 
+import com.example.personaumg4.rest.CarrerasREST;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class Persona implements Serializable {
     private String nombre;
     private String apellido;
     private Integer edad;
+    private String cui;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_pais", referencedColumnName = "id_pais")
@@ -26,6 +28,10 @@ public class Persona implements Serializable {
     @JoinColumn(name = "id_estado", referencedColumnName = "id")
     private Estado estado;
 
-    @Column(name = "estado_p", insertable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_carrera", referencedColumnName = "id")
+    private Carreras carreras;
+
+    @Column(name = "estado_p")
     private String estadoP;
 }

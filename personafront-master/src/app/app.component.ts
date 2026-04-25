@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import { EstadosService } from './services/estados/estados.service';
 import { PaisesService } from './services/paises/paises.service';
+import { CarrerasService } from './services/carreras/carreras.service';
 import { PersonaService } from './services/persona/persona.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { AfterViewInit } from '@angular/core';
@@ -23,9 +24,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   paises: any;
   estados: any;
   personas: any;
+  carreras: any;
   dataSource: MatTableDataSource<any>;
 
-  displayedColumns: string[] = ['id', 'name', 'last-name', 'age', 'country-name', 'state-name', 'options'];
+  displayedColumns: string[] = ['id', 'name', 'last-name','cui', 'age', 'carrera', 'country-name', 'state-name', 'options'];
 
   panelOpenState = false;
 
@@ -34,13 +36,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     public fb: UntypedFormBuilder,
     public estadosService: EstadosService,
     public paisesService: PaisesService,
-    public personaService: PersonaService
+    public personaService: PersonaService,
+    public carrerasService: CarrerasService,
   ) {
 
   }
   ngAfterViewInit(): void {
     this.setDataAndPagination();
   }
+
+compararObjetos(o1: any, o2: any): boolean {
+  return o1 && o2 ? o1.id === o2.id : o1 === o2;
+}
   ngOnInit(): void {
 
     this.personaForm = this.fb.group({
@@ -49,7 +56,11 @@ export class AppComponent implements OnInit, AfterViewInit {
       apellido: ['', Validators.required],
       edad: ['', Validators.required],
       pais: ['', Validators.required],
+      carreras: ['', Validators.required],
       estado: ['', Validators.required],
+      estadoP: ['', Validators.required],
+      cui: ['', Validators.required],
+
     });
 
     this.paisesService.getAllPaises().subscribe(resp => {
@@ -57,6 +68,13 @@ export class AppComponent implements OnInit, AfterViewInit {
     },
       error => { console.error(error) }
     );
+
+    this.carrerasService.getAllCarreras().subscribe(resp => {
+      this.carreras = resp;
+    },
+      error => { console.error(error) }
+    );
+
 
     this.personaService.getAllPersonas().subscribe(resp => {
       this.personas = resp;
@@ -78,6 +96,9 @@ export class AppComponent implements OnInit, AfterViewInit {
    * Metodo que llama el boton de guardar. Enviamos la peticion la servicio, luego reseteamos el formulario, filtramos
    * y reseteamos la paginacion.
    */
+
+
+
   guardar(): void {
     this.personaService.savePersona(this.personaForm.value).subscribe(resp => {
       this.personaForm.reset();
